@@ -1,0 +1,6 @@
+recursive-include src/zana/templates *
+include LICENSE
+include README.md
+include CHANGELOG.md
+include .env.example
+recursive-include assets *

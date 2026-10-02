@@ -1,0 +1,52 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+env/
+venv/
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+.Python
+
+# Test / coverage reports
+htmlcov/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Poetry
+poetry.lock
+
+# MyPy
+.mypy_cache/
+
+# Pyright
+pyrightconfig.json
+
+# VS Code
+.vscode/
+
+# IDEs
+.idea/
+*.iml
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+zana.cmd
+zana.bat
