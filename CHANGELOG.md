@@ -8,12 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.0] - 2026-10-02
 
 ### Added
-- Core Typer CLI framework with `zana` entry point and Rich formatting.
-- `zana new <type> <name>` command supporting opinionated scaffolds for `python`, `node`, and `java`.
+- Core Typer CLI framework with `toolbelt` entry point and Rich formatting.
+- `toolbelt new <type> <name>` command supporting opinionated scaffolds for `python`, `node`, and `java`.
 - Complete Jinja2 templates for Python, Node.js/TypeScript, and Java projects.
-- `zana commit` command integrating Anthropic Claude (`claude-sonnet-4`) with interactive `Y/n/edit` prompt and rule-based fallback generator.
-- `zana audit [path]` command with 10 repository quality checks, Rich table output, `--json` export, and `--fix` automated repair.
-- `zana version` command providing installed version detection and automated PyPI update checks.
+- `toolbelt commit` command integrating Anthropic Claude (`claude-sonnet-4`) with interactive `Y/n/edit` prompt and rule-based fallback generator.
+- `toolbelt audit [path]` command with 10 repository quality checks, Rich table output, `--json` export, and `--fix` automated repair.
+- `toolbelt version` command providing installed version detection and automated PyPI update checks.
 - Comprehensive test suite covering all CLI commands using `pytest` and `typer.testing.CliRunner`.
 - GitHub Actions CI workflow with multi-version Python matrix, Ruff linting, formatting, MyPy, and Pytest.
 - GitHub Actions Release workflow using PyPI Trusted Publishing via OIDC.

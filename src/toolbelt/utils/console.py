@@ -1,4 +1,4 @@
-"""Rich console helpers for Zana CLI."""
+"""Rich console helpers for Toolbelt CLI."""
 
 from __future__ import annotations
 

@@ -1,4 +1,4 @@
-"""Implementation of `zana audit [path]` command."""
+"""Implementation of `toolbelt audit [path]` command."""
 
 from __future__ import annotations
 

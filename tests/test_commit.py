@@ -1,4 +1,4 @@
-"""Tests for the `zana commit` command."""
+"""Tests for the `toolbelt commit` command."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from unittest import mock
 import pytest
 from typer.testing import CliRunner
 
-from zana.cli import app
+from toolbelt.cli import app
 
 runner = CliRunner()
 
@@ -23,16 +23,16 @@ index 1234567..89abcdef 100644
 
 
 def test_commit_empty_diff(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setattr("zana.commands.commit.git_diff_staged", lambda: "")
+    monkeypatch.setattr("toolbelt.commands.commit.git_diff_staged", lambda: "")
     result = runner.invoke(app, ["commit"])
     assert result.exit_code == 1
     assert "Nothing staged. Run git add first." in result.stdout
 
 
 def test_commit_dry_run(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setattr("zana.commands.commit.git_diff_staged", lambda: SAMPLE_DIFF)
+    monkeypatch.setattr("toolbelt.commands.commit.git_diff_staged", lambda: SAMPLE_DIFF)
     mock_commit = mock.MagicMock()
-    monkeypatch.setattr("zana.commands.commit.git_commit", mock_commit)
+    monkeypatch.setattr("toolbelt.commands.commit.git_commit", mock_commit)
     monkeypatch.setenv("ANTHROPIC_API_KEY", "")
 
     result = runner.invoke(app, ["commit", "--dry-run"])
@@ -42,9 +42,9 @@ def test_commit_dry_run(monkeypatch: pytest.MonkeyPatch) -> None:
 
 
 def test_commit_fallback_with_yes(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setattr("zana.commands.commit.git_diff_staged", lambda: SAMPLE_DIFF)
+    monkeypatch.setattr("toolbelt.commands.commit.git_diff_staged", lambda: SAMPLE_DIFF)
     mock_commit = mock.MagicMock()
-    monkeypatch.setattr("zana.commands.commit.git_commit", mock_commit)
+    monkeypatch.setattr("toolbelt.commands.commit.git_commit", mock_commit)
     monkeypatch.setenv("ANTHROPIC_API_KEY", "")
 
     result = runner.invoke(app, ["commit", "--yes"])
@@ -56,9 +56,9 @@ def test_commit_fallback_with_yes(monkeypatch: pytest.MonkeyPatch) -> None:
 
 
 def test_commit_fallback_with_type_and_scope(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setattr("zana.commands.commit.git_diff_staged", lambda: SAMPLE_DIFF)
+    monkeypatch.setattr("toolbelt.commands.commit.git_diff_staged", lambda: SAMPLE_DIFF)
     mock_commit = mock.MagicMock()
-    monkeypatch.setattr("zana.commands.commit.git_commit", mock_commit)
+    monkeypatch.setattr("toolbelt.commands.commit.git_commit", mock_commit)
     monkeypatch.setenv("ANTHROPIC_API_KEY", "")
 
     result = runner.invoke(
@@ -71,9 +71,9 @@ def test_commit_fallback_with_type_and_scope(monkeypatch: pytest.MonkeyPatch) ->
 
 
 def test_commit_with_anthropic(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setattr("zana.commands.commit.git_diff_staged", lambda: SAMPLE_DIFF)
+    monkeypatch.setattr("toolbelt.commands.commit.git_diff_staged", lambda: SAMPLE_DIFF)
     mock_commit = mock.MagicMock()
-    monkeypatch.setattr("zana.commands.commit.git_commit", mock_commit)
+    monkeypatch.setattr("toolbelt.commands.commit.git_commit", mock_commit)
     monkeypatch.setenv("ANTHROPIC_API_KEY", "test-api-key")
 
     mock_client = mock.MagicMock()
@@ -99,9 +99,9 @@ def test_commit_with_anthropic(monkeypatch: pytest.MonkeyPatch) -> None:
 
 
 def test_commit_user_abort(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setattr("zana.commands.commit.git_diff_staged", lambda: SAMPLE_DIFF)
+    monkeypatch.setattr("toolbelt.commands.commit.git_diff_staged", lambda: SAMPLE_DIFF)
     mock_commit = mock.MagicMock()
-    monkeypatch.setattr("zana.commands.commit.git_commit", mock_commit)
+    monkeypatch.setattr("toolbelt.commands.commit.git_commit", mock_commit)
     monkeypatch.setenv("ANTHROPIC_API_KEY", "")
 
     result = runner.invoke(app, ["commit"], input="n\n")
@@ -111,9 +111,9 @@ def test_commit_user_abort(monkeypatch: pytest.MonkeyPatch) -> None:
 
 
 def test_commit_user_edit(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setattr("zana.commands.commit.git_diff_staged", lambda: SAMPLE_DIFF)
+    monkeypatch.setattr("toolbelt.commands.commit.git_diff_staged", lambda: SAMPLE_DIFF)
     mock_commit = mock.MagicMock()
-    monkeypatch.setattr("zana.commands.commit.git_commit", mock_commit)
+    monkeypatch.setattr("toolbelt.commands.commit.git_commit", mock_commit)
     monkeypatch.setenv("ANTHROPIC_API_KEY", "")
 
     result = runner.invoke(
@@ -125,9 +125,10 @@ def test_commit_user_edit(monkeypatch: pytest.MonkeyPatch) -> None:
 
 
 def test_commit_too_short_abort(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setattr("zana.commands.commit.git_diff_staged", lambda: SAMPLE_DIFF)
+    monkeypatch.setattr("toolbelt.commands.commit.git_diff_staged", lambda: SAMPLE_DIFF)
     monkeypatch.setattr(
-        "zana.services.llm.CommitMessageGenerator.generate", lambda *a, **kw: "short"
+        "toolbelt.services.llm.CommitMessageGenerator.generate",
+        lambda *a, **kw: "short",
     )
     result = runner.invoke(app, ["commit", "--yes"])
     assert result.exit_code == 1

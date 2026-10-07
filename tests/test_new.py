@@ -1,4 +1,4 @@
-"""Tests for the `zana new` command."""
+"""Tests for the `toolbelt new` command."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ from pathlib import Path
 
 from typer.testing import CliRunner
 
-from zana.cli import app
+from toolbelt.cli import app
 
 runner = CliRunner()
 

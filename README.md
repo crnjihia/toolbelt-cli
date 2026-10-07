@@ -1,7 +1,7 @@
-# Zana CLI
+# Toolbelt CLI
 
 <p align="center">
-  <img src="assets/demo.png" alt="Zana CLI in action" width="800" />
+  <img src="assets/demo.png" alt="Toolbelt CLI in action" width="800" />
 </p>
 
 <p align="center">
@@ -9,9 +9,9 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/crnji/Zana-CLI/actions/workflows/ci.yml"><img src="https://github.com/crnji/Zana-CLI/actions/workflows/ci.yml/badge.svg" alt="CI Status" /></a>
-  <a href="https://pypi.org/project/zana-cli/"><img src="https://img.shields.io/pypi/v/zana-cli.svg?color=blue" alt="PyPI Version" /></a>
-  <a href="https://pypi.org/project/zana-cli/"><img src="https://img.shields.io/pypi/pyversions/zana-cli.svg" alt="Python Versions" /></a>
+  <a href="https://github.com/crnji/Toolbelt-CLI/actions/workflows/ci.yml"><img src="https://github.com/crnji/Toolbelt-CLI/actions/workflows/ci.yml/badge.svg" alt="CI Status" /></a>
+  <a href="https://pypi.org/project/toolbelt-cli/"><img src="https://img.shields.io/pypi/v/toolbelt-cli.svg?color=blue" alt="PyPI Version" /></a>
+  <a href="https://pypi.org/project/toolbelt-cli/"><img src="https://img.shields.io/pypi/pyversions/toolbelt-cli.svg" alt="Python Versions" /></a>
   <a href="https://github.com/astral-sh/ruff"><img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json" alt="Ruff" /></a>
   <a href="https://mypy.readthedocs.io/"><img src="https://img.shields.io/badge/types-Mypy-blue.svg" alt="Type Checked" /></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" /></a>
@@ -21,12 +21,12 @@
 
 ## Overview
 
-**Zana CLI** (`zana`) is a command-line tool built with Python 3.11+, Typer, Rich, and Jinja2 that automates repetitive developer workflows:
+**Toolbelt CLI** (`toolbelt`) is a command-line tool built with Python 3.11+, Typer, Rich, and Jinja2 that automates repetitive developer workflows:
 
-1. 🚀 **Scaffold New Projects (`zana new`)**: Instantly generate clean, production-ready project templates for **Python**, **Node.js / TypeScript**, and **Java** with pre-configured linters, test harnesses, CI pipelines, and Dockerfiles.
-2. 🤖 **AI-Powered Commits (`zana commit`)**: Automatically analyze staged git diffs and draft structured Conventional Commit messages using **Claude** (`claude-sonnet-4`), with an offline rule-based fallback when no API key is set.
-3. 🔍 **Repository Auditing (`zana audit`)**: Scan any codebase for missing documentation sections (`Installation`, `Usage`, `License`), required configuration files (`.gitignore`, `pyproject.toml`, test suites, CI workflows), and automatically repair missing files with `--fix`.
-4. 📦 **Version & PyPI Sync (`zana version`)**: Inspect currently installed version and verify release availability against the Python Package Index.
+1. 🚀 **Scaffold New Projects (`toolbelt new`)**: Instantly generate clean, production-ready project templates for **Python**, **Node.js / TypeScript**, and **Java** with pre-configured linters, test harnesses, CI pipelines, and Dockerfiles.
+2. 🤖 **AI-Powered Commits (`toolbelt commit`)**: Automatically analyze staged git diffs and draft structured Conventional Commit messages using **Claude** (`claude-sonnet-4`), with an offline rule-based fallback when no API key is set.
+3. 🔍 **Repository Auditing (`toolbelt audit`)**: Scan any codebase for missing documentation sections (`Installation`, `Usage`, `License`), required configuration files (`.gitignore`, `pyproject.toml`, test suites, CI workflows), and automatically repair missing files with `--fix`.
+4. 📦 **Version & PyPI Sync (`toolbelt version`)**: Inspect currently installed version and verify release availability against the Python Package Index.
 
 ---
 
@@ -35,24 +35,24 @@
 ### With `pipx` (Recommended)
 Isolate CLI tools in their own dedicated virtual environments:
 ```bash
-pipx install zana-cli
+pipx install toolbelt-cli
 ```
 
 ### With `uv`
 Fast single-step tool installation:
 ```bash
-uv tool install zana-cli
+uv tool install toolbelt-cli
 ```
 
 ### With standard `pip`
 ```bash
-pip install zana-cli
+pip install toolbelt-cli
 ```
 
 ### Local Development Installation
 ```bash
-git clone https://github.com/crnji/Zana-CLI.git
-cd Zana-CLI
+git clone https://github.com/crnji/Toolbelt-CLI.git
+cd Toolbelt-CLI
 pip install -e ".[dev]"
 ```
 
@@ -62,21 +62,21 @@ pip install -e ".[dev]"
 
 | Command | Arguments | Flags | Description |
 |:---|:---|:---|:---|
-| `zana new` | `<type>` `<name>` | `--author`, `--license`, `--ci/--no-ci`, `--docker/--no-docker`, `-y/--yes` | Scaffold an opinionated Python, Node, or Java project. |
-| `zana commit` | *(none)* | `--dry-run`, `-t/--type`, `-s/--scope`, `-y/--yes` | Inspect staged diff and generate Conventional Commit message. |
-| `zana audit` | `[path=.]` | `--json`, `--fix` | Run 10-point repository audit with Rich table or JSON output. |
-| `zana version` | *(none)* | *(none)* | Display installed version and check PyPI for updates. |
-| `zana --help` | *(none)* | *(none)* | Show global options and available commands. |
+| `toolbelt new` | `<type>` `<name>` | `--author`, `--license`, `--ci/--no-ci`, `--docker/--no-docker`, `-y/--yes` | Scaffold an opinionated Python, Node, or Java project. |
+| `toolbelt commit` | *(none)* | `--dry-run`, `-t/--type`, `-s/--scope`, `-y/--yes` | Inspect staged diff and generate Conventional Commit message. |
+| `toolbelt audit` | `[path=.]` | `--json`, `--fix` | Run 10-point repository audit with Rich table or JSON output. |
+| `toolbelt version` | *(none)* | *(none)* | Display installed version and check PyPI for updates. |
+| `toolbelt --help` | *(none)* | *(none)* | Show global options and available commands. |
 
 ---
 
 ## Feature Tour
 
-### 1. `zana new <type> <name>`
+### 1. `toolbelt new <type> <name>`
 Scaffolds a new project directory with interactive prompts powered by Typer and Rich:
 
 ```bash
-zana new python my_service
+toolbelt new python my_service
 ```
 
 ```text
@@ -85,7 +85,7 @@ License (MIT | Apache-2.0 | none) [MIT]: MIT
 Include CI? (y/n) [True]: y
 Include Docker? (y/n) [False]: y
 
-┌───────────────────────────── 🎉 Zana Scaffold ──────────────────────────────┐
+┌──────────────────────────── 🎉 Toolbelt Scaffold ────────────────────────────┐
 │ ✨ Project successfully scaffolded!                                         │
 │                                                                             │
 │ Next steps:                                                                 │
@@ -95,7 +95,7 @@ Include Docker? (y/n) [False]: y
 
 #### Supported Stacks & Project Layouts
 
-- **Python (`zana new python <name>`)**:
+- **Python (`toolbelt new python <name>`)**:
   - `src/<name>/__init__.py`, `main.py`
   - `tests/test_main.py`
   - `pyproject.toml` (configured with Ruff, MyPy, and Pytest)
@@ -105,14 +105,14 @@ Include Docker? (y/n) [False]: y
   - `.github/workflows/ci.yml` (optional)
   - `Dockerfile` (optional)
 
-- **Node.js / TypeScript (`zana new node <name>`)**:
+- **Node.js / TypeScript (`toolbelt new node <name>`)**:
   - `package.json` (TypeScript, ESLint, Prettier, Vitest)
   - `tsconfig.json`
   - `src/index.ts`, `src/index.test.ts`
   - `.eslintrc.json`, `.prettierrc`
   - `README.md`, `.gitignore`, `LICENSE`
 
-- **Java (`zana new java <name>`)**:
+- **Java (`toolbelt new java <name>`)**:
   - `pom.xml` (Maven, JUnit 5 Jupiter, compiler plugins)
   - `src/main/java/com/<name>/App.java`
   - `src/test/java/com/<name>/AppTest.java`
@@ -120,12 +120,12 @@ Include Docker? (y/n) [False]: y
 
 ---
 
-### 2. `zana commit`
+### 2. `toolbelt commit`
 Reads your staged git diff (`git diff --staged`) and drafts a Conventional Commit message:
 
 ```bash
 git add src/
-zana commit
+toolbelt commit
 ```
 
 ```text
@@ -137,21 +137,21 @@ Apply commit? [y/n/edit] (y): y
 ```
 
 - **Claude Sonnet 4 Integration**: Export your Anthropic API key (`export ANTHROPIC_API_KEY="sk-ant-..."`) for contextual messages following standard types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`.
-- **Smart Fallback**: If no key is set, Zana falls back to an offline heuristic analyzer that inspects diff sizes, lines added/removed, and modified file types.
-- **Dry-run Mode**: Preview generated messages without applying commits using `zana commit --dry-run`.
+- **Smart Fallback**: If no key is set, Toolbelt falls back to an offline heuristic analyzer that inspects diff sizes, lines added/removed, and modified file types.
+- **Dry-run Mode**: Preview generated messages without applying commits using `toolbelt commit --dry-run`.
 - **Safety**: Rejects any commit message shorter than 10 characters and offers interactive `[y/n/edit]` revision.
 
 ---
 
-### 3. `zana audit [path]`
+### 3. `toolbelt audit [path]`
 Performs a structured quality check on any repository:
 
 ```bash
-zana audit .
+toolbelt audit .
 ```
 
 ```text
-                     Repository Audit: Zana-CLI                     
+                    Repository Audit: Toolbelt-CLI                     
 ┌────────────────────────────┬──────────┬──────────────────────────┐
 │ Check                      │  Status  │ Details                  │
 ├────────────────────────────┼──────────┼──────────────────────────┤
@@ -174,11 +174,11 @@ zana audit .
 
 ---
 
-### 4. `zana version`
+### 4. `toolbelt version`
 Displays installed package version and checks whether updates are available on PyPI:
 
 ```bash
-zana version
+toolbelt version
 ```
 
 ---
@@ -200,8 +200,8 @@ LOG_LEVEL=INFO
 ## Architecture & Tech Stack
 
 ```text
-zana-cli/
-├── src/zana/
+toolbelt-cli/
+├── src/toolbelt/
 │   ├── cli.py             # Typer application definition and routing
 │   ├── commands/          # Subcommand handlers (new, commit, audit, version)
 │   ├── services/          # Scaffolder, LLM Commit Generator, and Auditor
@@ -244,7 +244,7 @@ mypy src
 This project is configured with GitHub Actions **Trusted Publishing** using OpenID Connect (OIDC). No long-lived API tokens are stored in repository secrets.
 
 To release a new version:
-1. Bump the version in `pyproject.toml` and `src/zana/__init__.py`.
+1. Bump the version in `pyproject.toml` and `src/toolbelt/__init__.py`.
 2. Update `CHANGELOG.md`.
 3. Create and push a git tag:
    ```bash

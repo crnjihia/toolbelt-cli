@@ -1,4 +1,4 @@
-"""Tests for the `zana version` command."""
+"""Tests for the `toolbelt version` command."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from unittest import mock
 import httpx
 from typer.testing import CliRunner
 
-from zana.cli import app
+from toolbelt.cli import app
 
 runner = CliRunner()
 
@@ -21,7 +21,7 @@ def test_version_no_update() -> None:
         with mock.patch("httpx.get", return_value=mock_resp):
             result = runner.invoke(app, ["version"])
             assert result.exit_code == 0, result.stdout
-            assert "zana-cli version: 0.1.0" in result.stdout
+            assert "toolbelt-cli version: 0.1.0" in result.stdout
             assert "newer version" not in result.stdout.lower()
 
 
@@ -42,4 +42,4 @@ def test_version_offline_fallback() -> None:
         with mock.patch("httpx.get", side_effect=httpx.ConnectError("Offline")):
             result = runner.invoke(app, ["version"])
             assert result.exit_code == 0, result.stdout
-            assert "zana-cli version: 0.1.0" in result.stdout
+            assert "toolbelt-cli version: 0.1.0" in result.stdout

@@ -1,4 +1,4 @@
-"""Tests for the `zana audit` command."""
+"""Tests for the `toolbelt audit` command."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from pathlib import Path
 
 from typer.testing import CliRunner
 
-from zana.cli import app
+from toolbelt.cli import app
 
 runner = CliRunner()
 
@@ -31,7 +31,7 @@ def create_sample_repo(
         if include_install:
             sections.append("## Installation\n\npip install .\n")
         if include_usage:
-            sections.append("## Usage\n\nzana --help\n")
+            sections.append("## Usage\n\ntoolbelt --help\n")
         if include_license_section:
             sections.append("## License\n\nMIT License\n")
         (base / "README.md").write_text("\n".join(sections), encoding="utf-8")

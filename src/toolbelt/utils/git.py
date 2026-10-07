@@ -1,4 +1,4 @@
-"""Git wrapper utilities for Zana CLI."""
+"""Git wrapper utilities for Toolbelt CLI."""
 
 from __future__ import annotations
 

@@ -1,4 +1,4 @@
-"""Implementation of `zana commit` command."""
+"""Implementation of `toolbelt commit` command."""
 
 from __future__ import annotations
 

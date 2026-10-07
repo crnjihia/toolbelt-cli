@@ -1,4 +1,4 @@
-"""Implementation of `zana new <type> <name>` command."""
+"""Implementation of `toolbelt new <type> <name>` command."""
 
 from __future__ import annotations
 
@@ -109,7 +109,7 @@ def main(
             f"[bold green]✨ Project successfully scaffolded![/bold green]\n\n"
             f"[dim]Next steps:[/dim]\n"
             f"[bold cyan]{commands}[/bold cyan]",
-            title="🎉 Zana Scaffold",
+            title="🎉 Toolbelt Scaffold",
             border_style="green",
             box=box.ROUNDED,
         )

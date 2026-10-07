@@ -1,1 +1,1 @@
-"""Test package for Zana CLI."""
+"""Test package for Toolbelt CLI."""

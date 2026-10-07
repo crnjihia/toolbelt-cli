@@ -1,4 +1,4 @@
-recursive-include src/zana/templates *
+recursive-include src/toolbelt/templates *
 include LICENSE
 include README.md
 include CHANGELOG.md

@@ -1,4 +1,4 @@
-"""Implementation of `zana version` command."""
+"""Implementation of `toolbelt version` command."""
 
 from __future__ import annotations
 
@@ -14,19 +14,19 @@ def main() -> None:
     """Print the current version and check PyPI for newer releases."""
     console = get_console()
     try:
-        current_version = importlib.metadata.version("zana-cli")
+        current_version = importlib.metadata.version("toolbelt-cli")
     except Exception:
         current_version = "0.1.0"
 
     console.print(
         Panel(
-            f"[bold]zana-cli version:[/bold] {current_version}",
+            f"[bold]toolbelt-cli version:[/bold] {current_version}",
             style="green",
             border_style="green",
         )
     )
 
-    pypi_url = "https://pypi.org/pypi/zana-cli/json"
+    pypi_url = "https://pypi.org/pypi/toolbelt-cli/json"
     try:
         resp = httpx.get(pypi_url, timeout=5.0)
         resp.raise_for_status()
@@ -36,7 +36,7 @@ def main() -> None:
             console.print(
                 Panel(
                     f"[yellow]A newer version {latest} is available![/yellow]\n"
-                    f"Run: [bold cyan]pip install -U zana-cli[/bold cyan]",
+                    f"Run: [bold cyan]pip install -U toolbelt-cli[/bold cyan]",
                     style="yellow",
                     border_style="yellow",
                     title="Update Available",

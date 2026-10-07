@@ -3,7 +3,7 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "zana-cli"
+name = "toolbelt-cli"
 version = "0.1.0"
 description = "A developer productivity CLI that scaffolds projects, generates conventional commit messages with Claude API, and audits repos."
 readme = "README.md"
@@ -42,13 +42,14 @@ dev = [
 ]
 
 [project.scripts]
-zana = "zana.cli:app"
+toolbelt = "toolbelt.cli:app"
+zana = "toolbelt.cli:app"
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.setuptools.package-data]
-zana = ["templates/**/*", "templates/**/.*"]
+toolbelt = ["templates/**/*", "templates/**/.*"]
 
 [tool.ruff]
 line-length = 88
