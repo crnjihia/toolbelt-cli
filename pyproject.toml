@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "A developer productivity CLI that scaffolds projects, generates conventional commit messages with Claude API, and audits repos."
 readme = "README.md"
 authors = [{ name = "Christopher Njihia", email = "crnjihia@gmail.com" }]
-license = { text = "MIT" }
+license = "MIT"
 requires-python = ">=3.11"
 keywords = ["cli", "productivity", "scaffold", "git", "conventional-commits", "audit", "anthropic", "claude"]
 classifiers = [
