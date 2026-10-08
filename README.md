@@ -4,6 +4,11 @@
   <img src="assets/demo.png" alt="Toolbelt CLI in action" width="800" />
 </p>
 
+*The screenshot above demonstrates live execution of Toolbelt CLI in Windows Terminal:*
+1. **`toolbelt --help`**: Rich command overview, argument formatting, and shell completion options.
+2. **`toolbelt version`**: Fast local package version readout and automated PyPI release checking.
+3. **`toolbelt audit .`**: 10-point repository quality audit checking README sections, license files, `.gitignore` entries, test directories, and CI workflows.
+
 <p align="center">
   <strong>Opinionated Developer Productivity CLI: Multi-Language Scaffolding, AI Git Commits, and Repository Auditing.</strong>
 </p>
@@ -16,6 +21,25 @@
   <a href="https://mypy.readthedocs.io/"><img src="https://img.shields.io/badge/types-Mypy-blue.svg" alt="Type Checked" /></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" /></a>
 </p>
+
+---
+
+## Table of Contents
+- [Overview](#overview)
+- [Installation](#installation)
+- [Command Reference](#command-reference)
+- [Feature Tour & Usage Examples](#feature-tour)
+  - [1. Project Scaffolding (`toolbelt new`)](#1-toolbelt-new-type-name)
+  - [2. AI-Powered Commits (`toolbelt commit`)](#2-toolbelt-commit)
+  - [3. Repository Auditing (`toolbelt audit`)](#3-toolbelt-audit-path)
+  - [4. Version & Upstream Sync (`toolbelt version`)](#4-toolbelt-version)
+- [Configuration & Environment Variables](#configuration--environment-variables)
+- [Architecture & Tech Stack](#architecture--tech-stack)
+- [Development & Testing](#development--testing)
+- [GitHub Setup & Publication Guide](#github-setup--publication-guide)
+- [Publishing to PyPI](#publishing-to-pypi)
+- [Contributing](#contributing)
+- [License](#license)
 
 ---
 
@@ -236,6 +260,53 @@ ruff format --check .
 # Run static type analysis
 mypy src
 ```
+
+---
+
+## GitHub Setup & Publication Guide
+
+Follow these steps to publish this repository to your personal or organization GitHub account:
+
+### 1. Initialize & Link GitHub Remote
+Create a new repository named `Toolbelt-CLI` on [GitHub](https://github.com/new) (leave "Initialize with README" unchecked). Then connect your local repository:
+
+```bash
+# Add your GitHub remote (replace with your personal or organization handle)
+git remote add origin https://github.com/crnji/Toolbelt-CLI.git
+
+# Ensure default branch is main
+git branch -M main
+
+# Push code, tags, and complete history to GitHub
+git push -u origin main
+```
+
+### 2. Configure PyPI Trusted Publishing (OIDC)
+Toolbelt CLI uses GitHub Actions **Trusted Publishing** (OIDC) so no API tokens or passwords need to be saved in repository secrets:
+
+1. Log into your [PyPI](https://pypi.org/) account.
+2. Navigate to **Account settings** → **Publishing** → **Add a GitHub publisher**.
+3. Set:
+   - **PyPI Project Name**: `toolbelt-cli`
+   - **Owner**: `crnji` (or your GitHub handle/org)
+   - **Repository name**: `Toolbelt-CLI`
+   - **Workflow name**: `release.yml`
+   - **Environment name**: `pypi`
+4. In your GitHub repository, ensure the `pypi` environment is enabled under **Settings** → **Environments**.
+5. When ready to release, simply tag and push:
+   ```bash
+   git tag v0.1.0
+   git push origin v0.1.0
+   ```
+   GitHub Actions will automatically build source distributions and wheels, run `twine check`, and publish to PyPI!
+
+### 3. Continuous Integration Checks
+On every push and pull request, [`.github/workflows/ci.yml`](.github/workflows/ci.yml) automatically executes:
+- Matrix testing across Python **3.11** and **3.12**.
+- Fast code hygiene validation via `ruff check .`.
+- Code format verification via `ruff format --check .`.
+- Static type analysis via `mypy src`.
+- Complete test suite execution via `pytest -v` (19 offline tests with 100% pass guarantee).
 
 ---
 
