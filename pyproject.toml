@@ -41,6 +41,11 @@ dev = [
     "types-jinja2",
 ]
 
+[project.urls]
+Homepage = "https://github.com/crnjihia/toolbelt-cli"
+Repository = "https://github.com/crnjihia/toolbelt-cli"
+Issues = "https://github.com/crnjihia/toolbelt-cli/issues"
+
 [project.scripts]
 toolbelt = "toolbelt.cli:app"
 zana = "toolbelt.cli:app"

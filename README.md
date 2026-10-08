@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/crnji/Toolbelt-CLI/actions/workflows/ci.yml"><img src="https://github.com/crnji/Toolbelt-CLI/actions/workflows/ci.yml/badge.svg" alt="CI Status" /></a>
+  <a href="https://github.com/crnjihia/toolbelt-cli/actions/workflows/ci.yml"><img src="https://github.com/crnjihia/toolbelt-cli/actions/workflows/ci.yml/badge.svg" alt="CI Status" /></a>
   <a href="https://pypi.org/project/toolbelt-cli/"><img src="https://img.shields.io/pypi/v/toolbelt-cli.svg?color=blue" alt="PyPI Version" /></a>
   <a href="https://pypi.org/project/toolbelt-cli/"><img src="https://img.shields.io/pypi/pyversions/toolbelt-cli.svg" alt="Python Versions" /></a>
   <a href="https://github.com/astral-sh/ruff"><img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json" alt="Ruff" /></a>
@@ -75,8 +75,8 @@ pip install toolbelt-cli
 
 ### Local Development Installation
 ```bash
-git clone https://github.com/crnji/Toolbelt-CLI.git
-cd Toolbelt-CLI
+git clone https://github.com/crnjihia/toolbelt-cli.git
+cd toolbelt-cli
 pip install -e ".[dev]"
 ```
 
@@ -268,11 +268,11 @@ mypy src
 Follow these steps to publish this repository to your personal or organization GitHub account:
 
 ### 1. Initialize & Link GitHub Remote
-Create a new repository named `Toolbelt-CLI` on [GitHub](https://github.com/new) (leave "Initialize with README" unchecked). Then connect your local repository:
+Create a new repository named `toolbelt-cli` on [GitHub](https://github.com/new) (leave "Initialize with README" unchecked). Then connect your local repository:
 
 ```bash
-# Add your GitHub remote (replace with your personal or organization handle)
-git remote add origin https://github.com/crnji/Toolbelt-CLI.git
+# Add your GitHub remote
+git remote add origin https://github.com/crnjihia/toolbelt-cli.git
 
 # Ensure default branch is main
 git branch -M main
@@ -288,8 +288,8 @@ Toolbelt CLI uses GitHub Actions **Trusted Publishing** (OIDC) so no API tokens 
 2. Navigate to **Account settings** → **Publishing** → **Add a GitHub publisher**.
 3. Set:
    - **PyPI Project Name**: `toolbelt-cli`
-   - **Owner**: `crnji` (or your GitHub handle/org)
-   - **Repository name**: `Toolbelt-CLI`
+   - **Owner**: `crnjihia`
+   - **Repository name**: `toolbelt-cli`
    - **Workflow name**: `release.yml`
    - **Environment name**: `pypi`
 4. In your GitHub repository, ensure the `pypi` environment is enabled under **Settings** → **Environments**.
