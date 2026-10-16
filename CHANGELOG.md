@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2026-10-17
+
+### Added
+- Official GitHub Pages documentation portal (`docs/`):
+  - Modern responsive layout with dark/light themes and design tokens.
+  - Interactive browser-based Terminal Simulator with live command previews.
+  - Instant keyboard-accessible documentation search (`Ctrl+K` / `Cmd+K`).
+  - Interactive multi-tool installation switcher (`pipx`, `uv`, `pip`, source).
+  - One-click copy-to-clipboard functionality across all command snippets.
+  - Sticky table of contents and scrollspy navigation.
+- GitHub Actions workflow (`.github/workflows/pages.yml`) for automated documentation deployment.
+- Documentation URL in `pyproject.toml` pointing to `https://crnjihia.github.io/toolbelt-cli/`.
+- Docs status badge in `README.md`.
+
 ## [0.1.0] - 2026-10-02
 
 ### Added

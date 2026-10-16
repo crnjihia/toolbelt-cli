@@ -14,6 +14,7 @@
 </p>
 
 <p align="center">
+  <a href="https://crnjihia.github.io/toolbelt-cli/"><img src="https://img.shields.io/badge/Docs-GitHub%20Pages-10b981?style=flat&logo=github" alt="Documentation" /></a>
   <a href="https://github.com/crnjihia/toolbelt-cli/actions/workflows/ci.yml"><img src="https://github.com/crnjihia/toolbelt-cli/actions/workflows/ci.yml/badge.svg" alt="CI Status" /></a>
   <a href="https://pypi.org/project/toolbelt-cli/"><img src="https://img.shields.io/pypi/v/toolbelt-cli.svg?color=blue" alt="PyPI Version" /></a>
   <a href="https://pypi.org/project/toolbelt-cli/"><img src="https://img.shields.io/pypi/pyversions/toolbelt-cli.svg" alt="Python Versions" /></a>

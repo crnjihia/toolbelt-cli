@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Toolbelt CLI — Developer Productivity CLI for Scaffolding, AI Commits & Audits</title>
+  
+  <meta name="description" content="Official documentation for Toolbelt CLI (zana): An opinionated developer productivity CLI that scaffolds multi-language projects, crafts Conventional Commits with Claude API, and audits codebases." />
+  <meta name="keywords" content="toolbelt, cli, developer productivity, scaffolding, python, typescript, java, claude, anthropic, conventional commits, repo audit" />
+  <meta name="author" content="Christopher Njihia" />
+
+  <!-- OpenGraph / Social Meta Tags -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Toolbelt CLI Documentation" />
+  <meta property="og:description" content="Scaffold projects, generate conventional commit messages with Claude API, and audit repositories in seconds." />
+  <meta property="og:image" content="assets/demo.png" />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛠️</text></svg>" />
+</head>
+<body>
+
+  <!-- Ambient Top Glow -->
+  <div class="ambient-glow"></div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-left">
+      <button class="icon-btn mobile-menu-btn" id="mobile-menu-toggle" aria-label="Toggle navigation menu">
+        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      <a href="#overview" class="logo-container">
+        <div class="logo-icon">⚡</div>
+        <span>Toolbelt CLI</span>
+      </a>
+      <span class="version-badge">v0.2.0</span>
+    </div>
+
+    <div class="header-right">
+      <button class="search-btn" id="search-trigger" aria-label="Search documentation">
+        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        <span>Search docs...</span>
+        <span class="search-shortcut">Ctrl K</span>
+      </button>
+
+      <a href="https://github.com/crnjihia/toolbelt-cli" target="_blank" rel="noopener" class="icon-btn" title="GitHub Repository">
+        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+      </a>
+
+      <a href="https://pypi.org/project/toolbelt-cli/" target="_blank" rel="noopener" class="icon-btn" title="PyPI Package">
+        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0L1.75 5.86v12.28L12 24l10.25-5.86V5.86L12 0zm0 2.29l8.25 4.72v9.98L12 21.71l-8.25-4.72V7.01L12 2.29z"/></svg>
+      </a>
+
+      <button class="icon-btn" id="theme-toggle" aria-label="Toggle dark/light theme" title="Toggle Theme">
+        <span>🌙</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Container -->
+  <div class="docs-container">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="docs-sidebar">
+      <nav class="sidebar-nav">
+        
+        <div class="nav-group">
+          <div class="nav-group-title">Getting Started</div>
+          <ul>
+            <li><a href="#overview" class="nav-link active">Overview</a></li>
+            <li><a href="#installation" class="nav-link">Installation</a></li>
+            <li><a href="#quickstart" class="nav-link">Quickstart</a></li>
+            <li><a href="#terminal-simulator" class="nav-link">Interactive Terminal <span class="badge">Live</span></a></li>
+          </ul>
+        </div>
+
+        <div class="nav-group">
+          <div class="nav-group-title">Commands Reference</div>
+          <ul>
+            <li><a href="#cmd-new" class="nav-link"><code>toolbelt new</code> <span class="badge">Scaffold</span></a></li>
+            <li><a href="#cmd-commit" class="nav-link"><code>toolbelt commit</code> <span class="badge">Claude AI</span></a></li>
+            <li><a href="#cmd-audit" class="nav-link"><code>toolbelt audit</code> <span class="badge">Auto-fix</span></a></li>
+            <li><a href="#cmd-version" class="nav-link"><code>toolbelt version</code> <span class="badge">PyPI</span></a></li>
+          </ul>
+        </div>
+
+        <div class="nav-group">
+          <div class="nav-group-title">Architecture & Configuration</div>
+          <ul>
+            <li><a href="#configuration" class="nav-link">Environment & Config</a></li>
+            <li><a href="#architecture" class="nav-link">Internal Architecture</a></li>
+            <li><a href="#supported-templates" class="nav-link">Scaffold Templates</a></li>
+          </ul>
+        </div>
+
+        <div class="nav-group">
+          <div class="nav-group-title">DevOps & Release</div>
+          <ul>
+            <li><a href="#testing" class="nav-link">Testing & Quality (100%)</a></li>
+            <li><a href="#publishing" class="nav-link">PyPI Trusted Publishing</a></li>
+            <li><a href="#contributing" class="nav-link">Contributing & License</a></li>
+          </ul>
+        </div>
+
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="docs-content">
+      
+      <!-- Hero Section -->
+      <section id="overview" class="hero">
+        <div class="hero-pill">
+          <span>🚀 v0.2.0 Released</span>
+        </div>
+        <h1 class="hero-title">
+          Build Faster with <span class="gradient-text">Toolbelt CLI</span>
+        </h1>
+        <p class="hero-subtitle">
+          An opinionated developer productivity CLI built with Python 3.11+, Typer, Rich, and Claude API. Scaffold robust projects across Python, Node, and Java, draft Conventional Commits from staged diffs, and audit repositories with auto-repair.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#installation" class="btn btn-primary">
+            <span>Get Started</span>
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </a>
+          <a href="#terminal-simulator" class="btn btn-secondary">
+            <span>Try in Browser Simulator</span>
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          </a>
+        </div>
+
+        <div class="badges-bar">
+          <a href="https://github.com/crnjihia/toolbelt-cli/actions/workflows/ci.yml" target="_blank" rel="noopener">
+            <img src="https://github.com/crnjihia/toolbelt-cli/actions/workflows/ci.yml/badge.svg" alt="CI Status" />
+          </a>
+          <a href="https://pypi.org/project/toolbelt-cli/" target="_blank" rel="noopener">
+            <img src="https://img.shields.io/pypi/v/toolbelt-cli.svg?color=10b981" alt="PyPI Version" />
+          </a>
+          <a href="https://pypi.org/project/toolbelt-cli/" target="_blank" rel="noopener">
+            <img src="https://img.shields.io/pypi/pyversions/toolbelt-cli.svg" alt="Python Versions" />
+          </a>
+          <a href="https://github.com/astral-sh/ruff" target="_blank" rel="noopener">
+            <img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json" alt="Ruff" />
+          </a>
+          <a href="https://mypy.readthedocs.io/" target="_blank" rel="noopener">
+            <img src="https://img.shields.io/badge/types-Mypy-blue.svg" alt="Type Checked" />
+          </a>
+          <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener">
+            <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" />
+          </a>
+        </div>
+      </section>
+
+      <!-- Screenshot Banner -->
+      <div class="screenshot-preview">
+        <img src="assets/demo.png" alt="Toolbelt CLI in action screenshot" loading="lazy" />
+      </div>
+
+      <!-- Feature Highlights Grid -->
+      <section class="section">
+        <h2 class="section-title">Core Highlights</h2>
+        <div class="grid-2">
+          
+          <div class="card">
+            <div class="card-icon">🚀</div>
+            <h3 class="card-title">Multi-Language Scaffolding</h3>
+            <p class="card-desc">
+              Generate opinionated, production-ready project templates for Python, Node.js / TypeScript, and Java with pre-configured linters, unit tests, GitHub Actions CI, and Dockerfiles.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">🤖</div>
+            <h3 class="card-title">AI Commits with Claude</h3>
+            <p class="card-desc">
+              Analyzes your staged <code>git diff</code> and drafts structured Conventional Commit messages using Claude Sonnet 4. Includes a deterministic rule-based fallback when offline.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">🔍</div>
+            <h3 class="card-title">10-Point Repo Auditor</h3>
+            <p class="card-desc">
+              Audits repositories for README sections, test suites, licenses, CI configs, and <code>.gitignore</code> rules. Features <code>--fix</code> to auto-create missing standard files.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">📦</div>
+            <h3 class="card-title">PyPI Sync & Dual Alias</h3>
+            <p class="card-desc">
+              Inspects your installed version and queries the PyPI API for newer releases. Ships with dual entrypoints: <code>toolbelt</code> and the Swahili alias <code>zana</code>.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Installation Section -->
+      <section id="installation" class="section">
+        <h2 class="section-title">Installation</h2>
+        <p>Toolbelt CLI is distributed on PyPI and can be installed through any modern Python package manager.</p>
+
+        <div class="install-box tabs-container">
+          <div class="tabs-header">
+            <button class="tab-btn active" data-tab="pipx">pipx (Recommended)</button>
+            <button class="tab-btn" data-tab="uv">uv tool</button>
+            <button class="tab-btn" data-tab="pip">pip</button>
+            <button class="tab-btn" data-tab="source">From Source</button>
+          </div>
+
+          <div class="tab-content active" data-tab-content="pipx">
+            <div class="code-block">
+              <button class="copy-btn" aria-label="Copy code">Copy</button>
+              <pre><code class="language-bash"># Isolated install in its own virtual environment
+pipx install toolbelt-cli</code></pre>
+            </div>
+          </div>
+
+          <div class="tab-content" data-tab-content="uv">
+            <div class="code-block">
+              <button class="copy-btn" aria-label="Copy code">Copy</button>
+              <pre><code class="language-bash"># Blazing-fast installation via astral uv
+uv tool install toolbelt-cli</code></pre>
+            </div>
+          </div>
+
+          <div class="tab-content" data-tab-content="pip">
+            <div class="code-block">
+              <button class="copy-btn" aria-label="Copy code">Copy</button>
+              <pre><code class="language-bash"># Standard pip install
+pip install toolbelt-cli</code></pre>
+            </div>
+          </div>
+
+          <div class="tab-content" data-tab-content="source">
+            <div class="code-block">
+              <button class="copy-btn" aria-label="Copy code">Copy</button>
+              <pre><code class="language-bash">git clone https://github.com/crnjihia/toolbelt-cli.git
+cd toolbelt-cli
+pip install -e ".[dev]"</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-info">
+          <span class="callout-icon">💡</span>
+          <div class="callout-content">
+            <strong>Dual CLI Aliases:</strong> Installing the package registers both <code>toolbelt</code> and <code>zana</code> (Swahili for "tools"). Both commands are 100% equivalent.
+          </div>
+        </div>
+      </section>
+
+      <!-- Quickstart Section -->
+      <section id="quickstart" class="section">
+        <h2 class="section-title">Quickstart</h2>
+        <p>Run <code>toolbelt --help</code> to see global flags and available commands:</p>
+
+        <div class="code-block">
+          <button class="copy-btn" aria-label="Copy code">Copy</button>
+          <pre><code class="language-bash">$ toolbelt --help
+
+Usage: toolbelt [OPTIONS] COMMAND [ARGS]...
+
+  Toolbelt – developer productivity CLI: scaffolding, AI commits, and audits.
+
+Options:
+  --install-completion          Install completion for the current shell.
+  --show-completion             Show completion for the current shell.
+  --help                        Show this message and exit.
+
+Commands:
+  audit    Audit repo for README sections, .gitignore, licenses, and CI.
+  commit   Generate Conventional Commit messages from diff using Claude API.
+  new      Scaffold a new project (python, node, java) with opinionated defaults.
+  version  Print installed version and check PyPI for updates.</code></pre>
+        </div>
+      </section>
+
+      <!-- Interactive Terminal Simulator -->
+      <section id="terminal-simulator" class="section">
+        <h2 class="section-title">Interactive Terminal Simulator</h2>
+        <p>Test real CLI commands directly in your browser. Click any quick shortcut or type any command below:</p>
+
+        <div class="terminal-card">
+          <div class="terminal-titlebar">
+            <div class="terminal-dots">
+              <span class="terminal-dot dot-red"></span>
+              <span class="terminal-dot dot-yellow"></span>
+              <span class="terminal-dot dot-green"></span>
+            </div>
+            <div class="terminal-title">bash — toolbelt-cli v0.2.0 simulator</div>
+            <div style="width: 50px;"></div>
+          </div>
+
+          <div class="terminal-shortcuts">
+            <span style="font-size: 0.75rem; color: var(--text-dim); margin-right: 6px; align-self: center;">Quick Run:</span>
+            <button class="sim-btn" data-cmd="toolbelt --help">toolbelt --help</button>
+            <button class="sim-btn" data-cmd="toolbelt new python demo_app">toolbelt new python</button>
+            <button class="sim-btn" data-cmd="toolbelt commit">toolbelt commit</button>
+            <button class="sim-btn" data-cmd="toolbelt audit .">toolbelt audit .</button>
+            <button class="sim-btn" data-cmd="toolbelt version">toolbelt version</button>
+            <button class="sim-btn" data-cmd="clear" style="color: var(--text-dim);">clear</button>
+          </div>
+
+          <div class="terminal-screen" id="term-screen">
+<span style="color:#10b981;font-weight:700;">$</span> <span style="color:#f8fafc;font-weight:600;">toolbelt audit .</span>
+<div style="color:#cbd5e1;margin:6px 0 16px;">                    Repository Audit: toolbelt-cli                     
+┌────────────────────────────┬──────────┬──────────────────────────┐
+│ Check                      │  Status  │ Details                  │
+├────────────────────────────┼──────────┼──────────────────────────┤
+│ README.md exists           │    <span style="color:#10b981;">✅</span>    │ 344 lines                │
+│ README has Install         │    <span style="color:#10b981;">✅</span>    │ found "## Installation"  │
+│ README has Usage           │    <span style="color:#10b981;">✅</span>    │ found "## Usage"         │
+│ README has License         │    <span style="color:#10b981;">✅</span>    │ found "## License"       │
+│ LICENSE file               │    <span style="color:#10b981;">✅</span>    │ MIT                      │
+│ .gitignore exists          │    <span style="color:#10b981;">✅</span>    │ 29 entries               │
+│ .gitignore has __pycache__ │    <span style="color:#10b981;">✅</span>    │                          │
+│ Tests directory            │    <span style="color:#10b981;">✅</span>    │ tests/ found             │
+│ CI config                  │    <span style="color:#10b981;">✅</span>    │ .github/workflows/ci.yml │
+│ pyproject.toml             │    <span style="color:#10b981;">✅</span>    │                          │
+└────────────────────────────┴──────────┴──────────────────────────┘</div>
+<span style="color:#94a3b8;font-size:0.8rem;">💡 Type a command below or press one of the quick test buttons above.</span>
+          </div>
+
+          <div class="terminal-input-row">
+            <span class="terminal-prompt">$</span>
+            <input type="text" id="term-input" class="terminal-input" placeholder="Type a command e.g. 'toolbelt commit' or 'toolbelt --help'..." autocomplete="off" spellcheck="false" />
+          </div>
+        </div>
+      </section>
+
+      <!-- Command: toolbelt new -->
+      <section id="cmd-new" class="section">
+        <h2 class="section-title"><code>toolbelt new &lt;type&gt; &lt;name&gt;</code></h2>
+        <p>Scaffolds a new project directory with opinionated defaults, complete with interactive Rich prompts or non-interactive automation flags.</p>
+
+        <div class="code-block">
+          <button class="copy-btn" aria-label="Copy code">Copy</button>
+          <pre><code class="language-bash"># Interactive scaffolding
+toolbelt new python my_api_service
+
+# Non-interactive scaffolding with all defaults accepted
+toolbelt new python my_api_service --yes
+
+# With custom flags
+toolbelt new node web_client --author "Jane Doe" --license Apache-2.0 --ci --no-docker</code></pre>
+        </div>
+
+        <h3 class="subsection-title">Arguments & Options</h3>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Argument / Option</th>
+                <th>Type</th>
+                <th>Default</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>type</code></td>
+                <td>Argument</td>
+                <td><em>(required)</em></td>
+                <td>Project ecosystem: <code>python</code>, <code>node</code>, or <code>java</code>.</td>
+              </tr>
+              <tr>
+                <td><code>name</code></td>
+                <td>Argument</td>
+                <td><em>(required)</em></td>
+                <td>Target directory and package/module name.</td>
+              </tr>
+              <tr>
+                <td><code>-a, --author</code></td>
+                <td>Option</td>
+                <td>Git <code>user.name</code></td>
+                <td>Author name injected into License, Readme, and manifests.</td>
+              </tr>
+              <tr>
+                <td><code>-l, --license</code></td>
+                <td>Option</td>
+                <td><code>MIT</code></td>
+                <td>License choice: <code>MIT</code>, <code>Apache-2.0</code>, or <code>none</code>.</td>
+              </tr>
+              <tr>
+                <td><code>--ci / --no-ci</code></td>
+                <td>Option</td>
+                <td><code>True</code></td>
+                <td>Include <code>.github/workflows/ci.yml</code> pipeline.</td>
+              </tr>
+              <tr>
+                <td><code>--docker / --no-docker</code></td>
+                <td>Option</td>
+                <td><code>False</code></td>
+                <td>Include multi-stage <code>Dockerfile</code>.</td>
+              </tr>
+              <tr>
+                <td><code>-y, --yes</code></td>
+                <td>Flag</td>
+                <td><code>False</code></td>
+                <td>Accept all default prompts automatically without pausing.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Command: toolbelt commit -->
+      <section id="cmd-commit" class="section">
+        <h2 class="section-title"><code>toolbelt commit</code></h2>
+        <p>Inspects your currently staged Git diff (<code>git diff --staged</code>) and drafts a Conventional Commit message conforming to <code>&lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;</code>.</p>
+
+        <div class="code-block">
+          <button class="copy-btn" aria-label="Copy code">Copy</button>
+          <pre><code class="language-bash"># Stage your modifications first
+git add src/
+
+# Run commit generator
+toolbelt commit</code></pre>
+        </div>
+
+        <div class="card" style="margin: 20px 0;">
+          <div style="font-family: var(--font-mono); font-size: 0.85rem; color: #cbd5e1;">
+            ┌────────────────────────── Proposed Commit Message ──────────────────────────┐<br/>
+            │ feat(auth): add bearer token validator and refresh middleware              │<br/>
+            └─────────────────────────────────────────────────────────────────────────────┘<br/><br/>
+            <span style="color: var(--accent-cyan);">Apply commit? [y/n/edit] (y):</span> y<br/>
+            <span style="color: var(--accent-emerald); font-weight: bold;">✅ Commit created successfully!</span>
+          </div>
+        </div>
+
+        <h3 class="subsection-title">Dual Intelligence Modes</h3>
+        <div class="grid-2">
+          <div class="card">
+            <h4 class="card-title">🤖 Claude Sonnet 4 (Online)</h4>
+            <p class="card-desc">
+              When <code>ANTHROPIC_API_KEY</code> is exported, Toolbelt sends your staged diff to Claude Sonnet 4 with system rules enforcing strict Conventional Commit types: <code>feat</code>, <code>fix</code>, <code>docs</code>, <code>style</code>, <code>refactor</code>, <code>test</code>, <code>chore</code>.
+            </p>
+          </div>
+          <div class="card">
+            <h4 class="card-title">⚡ Heuristic Analyzer (Offline Fallback)</h4>
+            <p class="card-desc">
+              If no API key is detected or the network is unavailable, Toolbelt analyzes changed filenames, lines added/removed, and directory patterns to produce clean commits like <code>test: update 2 files (+18/-3 lines)</code>.
+            </p>
+          </div>
+        </div>
+
+        <h3 class="subsection-title">Options</h3>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Option</th>
+                <th>Type</th>
+                <th>Default</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>--dry-run</code></td>
+                <td>Flag</td>
+                <td><code>False</code></td>
+                <td>Print proposed commit message without creating a commit.</td>
+              </tr>
+              <tr>
+                <td><code>-t, --type</code></td>
+                <td>Option</td>
+                <td><em>Auto</em></td>
+                <td>Force commit type (e.g., <code>feat</code>, <code>fix</code>, <code>chore</code>).</td>
+              </tr>
+              <tr>
+                <td><code>-s, --scope</code></td>
+                <td>Option</td>
+                <td><em>Auto</em></td>
+                <td>Force commit scope (e.g., <code>api</code>, <code>ui</code>, <code>parser</code>).</td>
+              </tr>
+              <tr>
+                <td><code>-y, --yes</code></td>
+                <td>Flag</td>
+                <td><code>False</code></td>
+                <td>Commit immediately without interactive confirmation.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Command: toolbelt audit -->
+      <section id="cmd-audit" class="section">
+        <h2 class="section-title"><code>toolbelt audit [path]</code></h2>
+        <p>Scans any local repository for essential documentation, licenses, configuration files, and quality infrastructure across 10 critical checks.</p>
+
+        <div class="code-block">
+          <button class="copy-btn" aria-label="Copy code">Copy</button>
+          <pre><code class="language-bash"># Audit current directory
+toolbelt audit .
+
+# Audit with interactive auto-fix for missing .gitignore and LICENSE
+toolbelt audit . --fix
+
+# Output machine-readable JSON for CI pipelines
+toolbelt audit . --json</code></pre>
+        </div>
+
+        <h3 class="subsection-title">The 10 Audit Verification Checks</h3>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Check Name</th>
+                <th>What is Verified</th>
+                <th>Failure Criteria</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>README.md exists</code></td>
+                <td>Verifies file presence & line count</td>
+                <td>File is missing</td>
+              </tr>
+              <tr>
+                <td><code>README has Install</code></td>
+                <td>Regex checks for <code>## Installation</code> section</td>
+                <td>Missing installation instructions</td>
+              </tr>
+              <tr>
+                <td><code>README has Usage</code></td>
+                <td>Regex checks for <code>## Usage</code> section</td>
+                <td>Missing usage guides</td>
+              </tr>
+              <tr>
+                <td><code>README has License</code></td>
+                <td>Regex checks for <code>## License</code> section</td>
+                <td>Missing license attribution</td>
+              </tr>
+              <tr>
+                <td><code>LICENSE file</code></td>
+                <td>Inspects root <code>LICENSE</code> file content</td>
+                <td>File is missing</td>
+              </tr>
+              <tr>
+                <td><code>.gitignore exists</code></td>
+                <td>Verifies file and counts rule entries</td>
+                <td>File is missing</td>
+              </tr>
+              <tr>
+                <td><code>.gitignore has __pycache__</code></td>
+                <td>Ensures Python cache ignores exist</td>
+                <td>Missing <code>__pycache__</code> ignore rule</td>
+              </tr>
+              <tr>
+                <td><code>Tests directory</code></td>
+                <td>Checks <code>tests/</code>, <code>test/</code>, or <code>src/test/</code></td>
+                <td>No non-empty test directory found</td>
+              </tr>
+              <tr>
+                <td><code>CI config</code></td>
+                <td>Checks <code>.github/workflows/*.yml</code></td>
+                <td>No CI workflow files exist</td>
+              </tr>
+              <tr>
+                <td><code>pyproject.toml</code></td>
+                <td>Checks Python build metadata file</td>
+                <td>File is missing</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout-info">
+          <span class="callout-icon">🛡️</span>
+          <div class="callout-content">
+            <strong>CI Gate Ready:</strong> <code>toolbelt audit</code> returns an exit code of <code>0</code> when all 10 checks pass, and <code>1</code> if any check fails, making it ideal as a GitHub Actions gatekeeper or pre-commit hook.
+          </div>
+        </div>
+      </section>
+
+      <!-- Command: toolbelt version -->
+      <section id="cmd-version" class="section">
+        <h2 class="section-title"><code>toolbelt version</code></h2>
+        <p>Reads the locally installed package version using <code>importlib.metadata</code> and asynchronously queries the PyPI JSON API via HTTPX to notify you if an update has been released.</p>
+
+        <div class="code-block">
+          <button class="copy-btn" aria-label="Copy code">Copy</button>
+          <pre><code class="language-bash">$ toolbelt version
+
+╭───────────────────────────────╮
+│ toolbelt-cli version: 0.2.0   │
+╰───────────────────────────────╯
+A newer version 0.2.0 is available!
+Run: pip install -U toolbelt-cli</code></pre>
+        </div>
+      </section>
+
+      <!-- Configuration Section -->
+      <section id="configuration" class="section">
+        <h2 class="section-title">Configuration & Environment</h2>
+        <p>Toolbelt CLI requires no configuration to run offline. To enable AI-powered commit generation, export your Anthropic API key:</p>
+
+        <div class="code-block">
+          <div class="code-header">.env / Shell Export</div>
+          <button class="copy-btn" aria-label="Copy code">Copy</button>
+          <pre><code class="language-bash"># Optional Anthropic API Key for Claude-powered commits
+export ANTHROPIC_API_KEY="sk-ant-api03-..."
+
+# Optional custom log level for internal debugging
+export LOG_LEVEL="INFO"</code></pre>
+        </div>
+      </section>
+
+      <!-- Architecture Section -->
+      <section id="architecture" class="section">
+        <h2 class="section-title">Architecture & Tech Stack</h2>
+        <p>Toolbelt CLI is architected around separation of concerns, decoupling Typer command definitions from service logic and templates:</p>
+
+        <div class="grid-3">
+          <div class="card">
+            <h4 class="card-title">Typer & Rich</h4>
+            <p class="card-desc">Type-hinted CLI parser with automatic help generation, formatted tables, rounded panels, and prompt dialogs.</p>
+          </div>
+          <div class="card">
+            <h4 class="card-title">Jinja2 Engine</h4>
+            <p class="card-desc">FileSystemLoader template rendering with recursive file walker and path-placeholder resolution.</p>
+          </div>
+          <div class="card">
+            <h4 class="card-title">Anthropic + Fallback</h4>
+            <p class="card-desc">Claude Sonnet 4 client wrapped in graceful fallback heuristics when running in offline or CI environments.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Testing & Quality -->
+      <section id="testing" class="section">
+        <h2 class="section-title">Testing & Quality Assurance</h2>
+        <p>The codebase maintains a 100% offline unit test suite powered by <code>pytest</code> and Typer's <code>CliRunner</code>.</p>
+
+        <div class="code-block">
+          <button class="copy-btn" aria-label="Copy code">Copy</button>
+          <pre><code class="language-bash"># Run all 19 offline unit tests
+$env:PYTHONPATH="src"; pytest -v
+
+# Code hygiene with Ruff linter
+ruff check .
+
+# Code formatting with Ruff formatter
+ruff format --check .
+
+# Static type checking with MyPy
+mypy src</code></pre>
+        </div>
+      </section>
+
+      <!-- Publishing Section -->
+      <section id="publishing" class="section">
+        <h2 class="section-title">PyPI Trusted Publishing (OIDC)</h2>
+        <p>This repository uses GitHub Actions <strong>Trusted Publishing</strong> with OpenID Connect (OIDC). No long-lived passwords or API tokens are stored in repository secrets.</p>
+
+        <div class="code-block">
+          <button class="copy-btn" aria-label="Copy code">Copy</button>
+          <pre><code class="language-bash"># 1. Update version in pyproject.toml & CHANGELOG.md
+# 2. Tag release and push to GitHub
+git tag v0.2.0
+git push origin v0.2.0
+
+# GitHub Actions release.yml builds the wheel and sdist,
+# executes twine check, and publishes to PyPI automatically!</code></pre>
+        </div>
+      </section>
+
+      <!-- Contributing Section -->
+      <section id="contributing" class="section">
+        <h2 class="section-title">Contributing & License</h2>
+        <p>Contributions, bug reports, and pull requests are warmly welcomed! Please check existing issues on <a href="https://github.com/crnjihia/toolbelt-cli/issues" target="_blank" rel="noopener">GitHub Issues</a> before opening a new one.</p>
+
+        <p>Released under the <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener">MIT License</a>. Copyright &copy; 2026 Christopher Njihia.</p>
+      </section>
+
+    </main>
+
+    <!-- On This Page Table of Contents -->
+    <aside class="docs-toc">
+      <div class="toc-title">On This Page</div>
+      <ul class="toc-list">
+        <li><a href="#overview" class="toc-link">Overview</a></li>
+        <li><a href="#installation" class="toc-link">Installation</a></li>
+        <li><a href="#quickstart" class="toc-link">Quickstart</a></li>
+        <li><a href="#terminal-simulator" class="toc-link">Terminal Simulator</a></li>
+        <li><a href="#cmd-new" class="toc-link">toolbelt new</a></li>
+        <li><a href="#cmd-commit" class="toc-link">toolbelt commit</a></li>
+        <li><a href="#cmd-audit" class="toc-link">toolbelt audit</a></li>
+        <li><a href="#cmd-version" class="toc-link">toolbelt version</a></li>
+        <li><a href="#configuration" class="toc-link">Configuration</a></li>
+        <li><a href="#architecture" class="toc-link">Architecture</a></li>
+        <li><a href="#testing" class="toc-link">Testing</a></li>
+        <li><a href="#publishing" class="toc-link">PyPI Publishing</a></li>
+        <li><a href="#contributing" class="toc-link">Contributing</a></li>
+      </ul>
+    </aside>
+
+  </div>
+
+  <!-- Search Modal Backdrop (Ctrl+K) -->
+  <div class="search-modal-backdrop" id="search-modal-backdrop">
+    <div class="search-modal">
+      <div class="search-input-wrapper">
+        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        <input type="text" id="search-modal-input" class="search-input" placeholder="Search documentation, commands, options..." />
+      </div>
+      <div class="search-results" id="search-results">
+        <!-- Injected via JavaScript -->
+      </div>
+      <div class="search-footer">
+        <span>Navigation: <kbd>↑</kbd> <kbd>↓</kbd></span>
+        <span>Select: <kbd>↵</kbd></span>
+        <span>Close: <kbd>ESC</kbd></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <p>
+      Toolbelt CLI Docs &bull; Designed & Maintained by <a href="https://github.com/crnjihia" target="_blank" rel="noopener">Christopher Njihia</a> &bull; Licensed under <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener">MIT</a>
+    </p>
+  </footer>
+
+  <!-- Script -->
+  <script src="app.js"></script>
+</body>
+</html>
