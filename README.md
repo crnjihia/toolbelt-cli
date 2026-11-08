@@ -8,13 +8,15 @@
   <strong>Scaffold projects, draft Conventional Commits, and audit repositories.</strong>
 </p>
 
-[![Documentation](https://img.shields.io/badge/Docs-GitHub%20Pages-10b981?logo=github)](https://crnjihia.github.io/toolbelt-cli/)
-[![CI Status](https://github.com/crnjihia/toolbelt-cli/actions/workflows/ci.yml/badge.svg)](https://github.com/crnjihia/toolbelt-cli/actions/workflows/ci.yml)
-[![PyPI Version](https://img.shields.io/pypi/v/toolbelt-cli?logo=pypi&label=PyPI)](https://pypi.org/project/toolbelt-cli/)
-[![Python Versions](https://img.shields.io/pypi/pyversions/toolbelt-cli?logo=python)](https://pypi.org/project/toolbelt-cli/)
-[![Linted with Ruff](https://img.shields.io/badge/lint-Ruff-D7FF64?logo=ruff&logoColor=black)](https://github.com/astral-sh/ruff)
-[![Type checked with Mypy](https://img.shields.io/badge/types-Mypy-blue)](https://mypy.readthedocs.io/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow)](https://opensource.org/licenses/MIT)
+<p align="center">
+  <a href="https://crnjihia.github.io/toolbelt-cli/">Documentation</a> ·
+  <a href="https://github.com/crnjihia/toolbelt-cli/actions/workflows/ci.yml">CI</a> ·
+  <a href="https://pypi.org/project/toolbelt-cli/">PyPI package</a> ·
+  <a href="https://pypi.org/project/toolbelt-cli/">Supported Python versions</a> ·
+  <a href="https://github.com/astral-sh/ruff">Ruff</a> ·
+  <a href="https://mypy.readthedocs.io/">Mypy</a> ·
+  <a href="https://opensource.org/licenses/MIT">MIT License</a>
+</p>
 
 ---
 
