@@ -356,7 +356,7 @@ Dry run – commit not performed.`,
   'toolbelt version': `╭───────────────────────────────╮
 │ toolbelt-cli version: 0.2.0   │
 ╰───────────────────────────────╯
-A newer version 0.2.3 is available!
+A newer version 0.2.4 is available!
 Run: pip install -U toolbelt-cli`,
 
   'clear': '__CLEAR__',

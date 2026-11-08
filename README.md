@@ -9,13 +9,13 @@
 </p>
 
 <p align="center">
-  <a href="https://crnjihia.github.io/toolbelt-cli/">Documentation</a> ·
-  <a href="https://github.com/crnjihia/toolbelt-cli/actions/workflows/ci.yml">CI</a> ·
-  <a href="https://pypi.org/project/toolbelt-cli/">PyPI package</a> ·
-  <a href="https://pypi.org/project/toolbelt-cli/">Supported Python versions</a> ·
-  <a href="https://github.com/astral-sh/ruff">Ruff</a> ·
-  <a href="https://mypy.readthedocs.io/">Mypy</a> ·
-  <a href="https://opensource.org/licenses/MIT">MIT License</a>
+  <a href="https://crnjihia.github.io/toolbelt-cli/"><img src="https://img.shields.io/badge/docs-GitHub%20Pages-222?logo=github" alt="Documentation" /></a>
+  <a href="https://github.com/crnjihia/toolbelt-cli/actions/workflows/ci.yml"><img src="https://github.com/crnjihia/toolbelt-cli/actions/workflows/ci.yml/badge.svg" alt="CI status" /></a>
+  <a href="https://pypi.org/project/toolbelt-cli/"><img src="https://img.shields.io/pypi/v/toolbelt-cli?label=PyPI%20version&amp;logo=pypi" alt="PyPI version" /></a>
+  <a href="https://pypi.org/project/toolbelt-cli/"><img src="https://img.shields.io/pypi/pyversions/toolbelt-cli?logo=python" alt="Supported Python versions" /></a>
+  <a href="https://github.com/astral-sh/ruff"><img src="https://img.shields.io/badge/lint-Ruff-D7FF64?logo=ruff&amp;logoColor=black" alt="Linted with Ruff" /></a>
+  <a href="https://mypy.readthedocs.io/"><img src="https://img.shields.io/badge/types-Mypy-blue" alt="Type checked with Mypy" /></a>
+  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow" alt="MIT License" /></a>
 </p>
 
 ---
