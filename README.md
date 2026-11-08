@@ -283,7 +283,7 @@ GitHub Actions manages CI, the documentation site, and PyPI releases:
 
 - **CI** ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)) runs on pushes and pull requests targeting `main`. It tests Python 3.11 and 3.12 with Ruff, MyPy, and Pytest.
 - **Documentation** ([`.github/workflows/pages.yml`](.github/workflows/pages.yml)) deploys the static `docs/` site to GitHub Pages when documentation or its workflow changes on `main`; it can also be started manually. In repository settings, Pages must use **GitHub Actions** as its deployment source.
-- **PyPI release** ([`.github/workflows/release.yml`](.github/workflows/release.yml)) runs for tags matching `v*`. It builds and checks the package, then publishes using PyPI Trusted Publishing (OIDC).
+- **Release** ([`.github/workflows/release.yml`](.github/workflows/release.yml)) runs for tags matching `v*`. It builds and checks a wheel and source archive, publishes them to PyPI using Trusted Publishing (OIDC), and attaches both files to the matching GitHub Release.
 
 ### Configure PyPI Trusted Publishing
 
