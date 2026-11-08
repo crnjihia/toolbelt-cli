@@ -8,15 +8,13 @@
   <strong>Scaffold projects, draft Conventional Commits, and audit repositories.</strong>
 </p>
 
-<p align="center">
-  <a href="https://crnjihia.github.io/toolbelt-cli/"><img src="https://img.shields.io/badge/Docs-GitHub%20Pages-10b981?style=flat&logo=github" alt="Documentation" /></a>
-  <a href="https://github.com/crnjihia/toolbelt-cli/actions/workflows/ci.yml"><img src="https://github.com/crnjihia/toolbelt-cli/actions/workflows/ci.yml/badge.svg" alt="CI Status" /></a>
-  <a href="https://pypi.org/project/toolbelt-cli/"><img src="https://img.shields.io/pypi/v/toolbelt-cli.svg?color=blue" alt="PyPI Version" /></a>
-  <a href="https://pypi.org/project/toolbelt-cli/"><img src="https://img.shields.io/pypi/pyversions/toolbelt-cli.svg" alt="Python Versions" /></a>
-  <a href="https://github.com/astral-sh/ruff"><img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json" alt="Ruff" /></a>
-  <a href="https://mypy.readthedocs.io/"><img src="https://img.shields.io/badge/types-Mypy-blue.svg" alt="Type Checked" /></a>
-  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" /></a>
-</p>
+[![Documentation](https://img.shields.io/badge/Docs-GitHub%20Pages-10b981?logo=github)](https://crnjihia.github.io/toolbelt-cli/)
+[![CI Status](https://github.com/crnjihia/toolbelt-cli/actions/workflows/ci.yml/badge.svg)](https://github.com/crnjihia/toolbelt-cli/actions/workflows/ci.yml)
+[![PyPI Version](https://img.shields.io/pypi/v/toolbelt-cli?logo=pypi&label=PyPI)](https://pypi.org/project/toolbelt-cli/)
+[![Python Versions](https://img.shields.io/pypi/pyversions/toolbelt-cli?logo=python)](https://pypi.org/project/toolbelt-cli/)
+[![Linted with Ruff](https://img.shields.io/badge/lint-Ruff-D7FF64?logo=ruff&logoColor=black)](https://github.com/astral-sh/ruff)
+[![Type checked with Mypy](https://img.shields.io/badge/types-Mypy-blue)](https://mypy.readthedocs.io/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow)](https://opensource.org/licenses/MIT)
 
 ---
 

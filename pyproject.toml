@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "toolbelt-cli"
-version = "0.2.1"
+version = "0.2.2"
 description = "A developer productivity CLI that scaffolds projects, generates conventional commit messages with Claude API, and audits repos."
 readme = "README.md"
 authors = [{ name = "Christopher Njihia", email = "crnjihia@gmail.com" }]

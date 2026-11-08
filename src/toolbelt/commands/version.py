@@ -16,7 +16,7 @@ def main() -> None:
     try:
         current_version = importlib.metadata.version("toolbelt-cli")
     except Exception:
-        current_version = "0.2.1"
+        current_version = "0.2.2"
 
     console.print(
         Panel(
