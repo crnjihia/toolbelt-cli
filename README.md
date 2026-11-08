@@ -4,13 +4,8 @@
   <img src="assets/demo.png" alt="Toolbelt CLI in action" width="800" />
 </p>
 
-*The screenshot above demonstrates live execution of Toolbelt CLI in Windows Terminal:*
-1. **`toolbelt --help`**: Rich command overview, argument formatting, and shell completion options.
-2. **`toolbelt version`**: Fast local package version readout and automated PyPI release checking.
-3. **`toolbelt audit .`**: 10-point repository quality audit checking README sections, license files, `.gitignore` entries, test directories, and CI workflows.
-
 <p align="center">
-  <strong>Opinionated Developer Productivity CLI: Multi-Language Scaffolding, AI Git Commits, and Repository Auditing.</strong>
+  <strong>Scaffold projects, draft Conventional Commits, and audit repositories.</strong>
 </p>
 
 <p align="center">
@@ -29,15 +24,16 @@
 - [Overview](#overview)
 - [Installation](#installation)
 - [Command Reference](#command-reference)
+- [Usage](#usage)
 - [Feature Tour & Usage Examples](#feature-tour)
   - [1. Project Scaffolding (`toolbelt new`)](#1-toolbelt-new-type-name)
   - [2. AI-Powered Commits (`toolbelt commit`)](#2-toolbelt-commit)
   - [3. Repository Auditing (`toolbelt audit`)](#3-toolbelt-audit-path)
-  - [4. Version & Upstream Sync (`toolbelt version`)](#4-toolbelt-version)
+  - [4. Version Check (`toolbelt version`)](#4-toolbelt-version)
 - [Configuration & Environment Variables](#configuration--environment-variables)
 - [Architecture & Tech Stack](#architecture--tech-stack)
 - [Development & Testing](#development--testing)
-- [GitHub Setup & Publication Guide](#github-setup--publication-guide)
+- [Deployments](#deployments)
 - [Publishing to PyPI](#publishing-to-pypi)
 - [Contributing](#contributing)
 - [License](#license)
@@ -46,12 +42,10 @@
 
 ## Overview
 
-**Toolbelt CLI** (`toolbelt`) is a command-line tool built with Python 3.11+, Typer, Rich, and Jinja2 that automates repetitive developer workflows:
-
-1. 🚀 **Scaffold New Projects (`toolbelt new`)**: Instantly generate clean, production-ready project templates for **Python**, **Node.js / TypeScript**, and **Java** with pre-configured linters, test harnesses, CI pipelines, and Dockerfiles.
-2. 🤖 **AI-Powered Commits (`toolbelt commit`)**: Automatically analyze staged git diffs and draft structured Conventional Commit messages using **Claude** (`claude-sonnet-4`), with an offline rule-based fallback when no API key is set.
-3. 🔍 **Repository Auditing (`toolbelt audit`)**: Scan any codebase for missing documentation sections (`Installation`, `Usage`, `License`), required configuration files (`.gitignore`, `pyproject.toml`, test suites, CI workflows), and automatically repair missing files with `--fix`.
-4. 📦 **Version & PyPI Sync (`toolbelt version`)**: Inspect currently installed version and verify release availability against the Python Package Index.
+Toolbelt CLI is a Python 3.11+ command-line utility built with Typer, Rich, and
+Jinja2. It provides starter templates for Python, Node.js/TypeScript, and Java,
+commit-message drafting from staged Git changes, repository checks, and an
+optional PyPI update check.
 
 ---
 
@@ -74,12 +68,14 @@ uv tool install toolbelt-cli
 pip install toolbelt-cli
 ```
 
-### Local Development Installation
+### Install from source
 ```bash
 git clone https://github.com/crnjihia/toolbelt-cli.git
 cd toolbelt-cli
 pip install -e ".[dev]"
 ```
+
+The installation provides both `toolbelt` and `zana` command names.
 
 ---
 
@@ -95,10 +91,25 @@ pip install -e ".[dev]"
 
 ---
 
+## Usage
+
+```bash
+toolbelt --help
+toolbelt new python my_service
+git add src/
+toolbelt commit --dry-run
+toolbelt audit .
+toolbelt version
+```
+
+`toolbelt commit` reads staged changes. Use `--dry-run` to preview a message
+without creating a commit.
+
 ## Feature Tour
 
 ### 1. `toolbelt new <type> <name>`
-Scaffolds a new project directory with interactive prompts powered by Typer and Rich:
+Scaffolds a new project directory. When options are omitted, the command prompts
+for author, license, CI, and Docker choices:
 
 ```bash
 toolbelt new python my_service
@@ -126,22 +137,26 @@ Include Docker? (y/n) [False]: y
   - `pyproject.toml` (configured with Ruff, MyPy, and Pytest)
   - `.pre-commit-config.yaml`
   - `Makefile` (`install`, `test`, `lint`, `format`, `clean`)
-  - `README.md`, `.gitignore`, `LICENSE`
-  - `.github/workflows/ci.yml` (optional)
-  - `Dockerfile` (optional)
+  - `README.md`, `.gitignore`, and optionally `LICENSE`
+  - `.github/workflows/ci.yml` when CI is enabled
+  - `Dockerfile` when Docker is enabled
 
 - **Node.js / TypeScript (`toolbelt new node <name>`)**:
-  - `package.json` (TypeScript, ESLint, Prettier, Vitest)
+  - `package.json` (TypeScript, ESLint, Prettier, and Vitest dependencies/scripts)
   - `tsconfig.json`
   - `src/index.ts`, `src/index.test.ts`
   - `.eslintrc.json`, `.prettierrc`
-  - `README.md`, `.gitignore`, `LICENSE`
+  - `README.md`, `.gitignore`, and optionally `LICENSE`
 
 - **Java (`toolbelt new java <name>`)**:
   - `pom.xml` (Maven, JUnit 5 Jupiter, compiler plugins)
   - `src/main/java/com/<name>/App.java`
   - `src/test/java/com/<name>/AppTest.java`
-  - `README.md`, `.gitignore`, `LICENSE`
+  - `README.md`, `.gitignore`, and optionally `LICENSE`
+
+`--yes` accepts defaults: the configured Git author (or `Developer`), MIT license,
+CI enabled, and Docker disabled. CI and Docker templates are currently available
+for Python projects.
 
 ---
 
@@ -161,10 +176,16 @@ Apply commit? [y/n/edit] (y): y
 ✅ Commit created successfully!
 ```
 
-- **Claude Sonnet 4 Integration**: Export your Anthropic API key (`export ANTHROPIC_API_KEY="sk-ant-..."`) for contextual messages following standard types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`.
-- **Smart Fallback**: If no key is set, Toolbelt falls back to an offline heuristic analyzer that inspects diff sizes, lines added/removed, and modified file types.
+- **Claude integration**: Set `ANTHROPIC_API_KEY` to draft a message with the Anthropic API (`claude-sonnet-4`). The staged diff is sent to Anthropic when this is enabled.
+- **Local fallback**: Without an API key, a heuristic uses the diff to draft a message without making a network call.
 - **Dry-run Mode**: Preview generated messages without applying commits using `toolbelt commit --dry-run`.
-- **Safety**: Rejects any commit message shorter than 10 characters and offers interactive `[y/n/edit]` revision.
+- **Confirmation**: Review, edit, or reject the proposed message before committing. `--yes` skips confirmation.
+
+Use `--type` and `--scope` to provide parts of the commit header:
+
+```bash
+toolbelt commit --type feat --scope cli
+```
 
 ---
 
@@ -175,27 +196,9 @@ Performs a structured quality check on any repository:
 toolbelt audit .
 ```
 
-```text
-                    Repository Audit: Toolbelt-CLI                     
-┌────────────────────────────┬──────────┬──────────────────────────┐
-│ Check                      │  Status  │ Details                  │
-├────────────────────────────┼──────────┼──────────────────────────┤
-│ README.md exists           │    ✅    │ 227 lines                │
-│ README has Install         │    ✅    │ found "## Installation"  │
-│ README has Usage           │    ✅    │ found "## Usage"         │
-│ README has License         │    ✅    │ found "## License"       │
-│ LICENSE file               │    ✅    │ MIT                      │
-│ .gitignore exists          │    ✅    │ 29 entries               │
-│ .gitignore has __pycache__ │    ✅    │                          │
-│ Tests directory            │    ✅    │ tests/ found             │
-│ CI config                  │    ✅    │ .github/workflows/ci.yml │
-│ pyproject.toml             │    ✅    │                          │
-└────────────────────────────┴──────────┴──────────────────────────┘
-```
-
-- **Exit Code**: Returns `0` if all checks pass, and `1` if any check fails (ready for pre-commit hooks and CI gates).
-- **Auto-Fix (`--fix`)**: Automatically prompts to create missing `.gitignore` files and `LICENSE` files (MIT or Apache-2.0).
+- **Auto-Fix (`--fix`)**: Prompts to create a missing `.gitignore` and/or MIT or Apache-2.0 `LICENSE`. It does not repair other failed checks.
 - **JSON Mode (`--json`)**: Outputs machine-readable JSON for integration into reporting tools or CI/CD pipelines.
+- **Exit status**: Returns `0` when all checks pass and `1` when one or more checks fail.
 
 ---
 
@@ -210,15 +213,25 @@ toolbelt version
 
 ## Configuration & Environment Variables
 
-Copy `.env.example` to `.env` to configure your environment:
+The optional `ANTHROPIC_API_KEY` environment variable is used by `toolbelt commit`.
+The CLI does not load `.env` files; set the variable in your shell before running
+the command.
 
-```ini
-# Optional: Set Claude API key for AI-assisted git commit message generation
-ANTHROPIC_API_KEY=sk-ant-api03-...
+PowerShell:
 
-# Optional: Set debug logging
-LOG_LEVEL=INFO
+```powershell
+$env:ANTHROPIC_API_KEY = "your-api-key"
+toolbelt commit
 ```
+
+macOS/Linux:
+
+```bash
+export ANTHROPIC_API_KEY="your-api-key"
+toolbelt commit
+```
+
+Without this variable, commit-message generation uses the local fallback.
 
 ---
 
@@ -264,66 +277,39 @@ mypy src
 
 ---
 
-## GitHub Setup & Publication Guide
+## Deployments
 
-Follow these steps to publish this repository to your personal or organization GitHub account:
+GitHub Actions manages CI, the documentation site, and PyPI releases:
 
-### 1. Initialize & Link GitHub Remote
-Create a new repository named `toolbelt-cli` on [GitHub](https://github.com/new) (leave "Initialize with README" unchecked). Then connect your local repository:
+- **CI** ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)) runs on pushes and pull requests targeting `main`. It tests Python 3.11 and 3.12 with Ruff, MyPy, and Pytest.
+- **Documentation** ([`.github/workflows/pages.yml`](.github/workflows/pages.yml)) deploys the static `docs/` site to GitHub Pages when documentation or its workflow changes on `main`; it can also be started manually. In repository settings, Pages must use **GitHub Actions** as its deployment source.
+- **PyPI release** ([`.github/workflows/release.yml`](.github/workflows/release.yml)) runs for tags matching `v*`. It builds and checks the package, then publishes using PyPI Trusted Publishing (OIDC).
+
+### Configure PyPI Trusted Publishing
+
+Before the first release, register a publisher on PyPI for the **`toolbelt-cli`**
+project with these exact values:
+
+| PyPI setting | Value |
+|---|---|
+| Owner | `crnjihia` |
+| Repository | `toolbelt-cli` |
+| Workflow filename | `release.yml` |
+| Environment name | `pypi` |
+
+The GitHub repository must also have a `pypi` environment. The build and
+distribution checks can pass even when publishing is not configured; in that case,
+the publish step fails with an `invalid-publisher` error. Configure the publisher
+in the PyPI project settings. Do not add a PyPI API token to the workflow for this
+OIDC setup.
+
+For a release, update the version in `pyproject.toml` and `src/toolbelt/__init__.py`,
+update `CHANGELOG.md`, then push a version tag:
 
 ```bash
-# Add your GitHub remote
-git remote add origin https://github.com/crnjihia/toolbelt-cli.git
-
-# Ensure default branch is main
-git branch -M main
-
-# Push code, tags, and complete history to GitHub
-git push -u origin main
+git tag v0.3.0
+git push origin v0.3.0
 ```
-
-### 2. Configure PyPI Trusted Publishing (OIDC)
-Toolbelt CLI uses GitHub Actions **Trusted Publishing** (OIDC) so no API tokens or passwords need to be saved in repository secrets:
-
-1. Log into your [PyPI](https://pypi.org/) account.
-2. Navigate to **Account settings** → **Publishing** → **Add a GitHub publisher**.
-3. Set:
-   - **PyPI Project Name**: `toolbelt-cli`
-   - **Owner**: `crnjihia`
-   - **Repository name**: `toolbelt-cli`
-   - **Workflow name**: `release.yml`
-   - **Environment name**: `pypi`
-4. In your GitHub repository, ensure the `pypi` environment is enabled under **Settings** → **Environments**.
-5. When ready to release, simply tag and push:
-   ```bash
-   git tag v0.1.0
-   git push origin v0.1.0
-   ```
-   GitHub Actions will automatically build source distributions and wheels, run `twine check`, and publish to PyPI!
-
-### 3. Continuous Integration Checks
-On every push and pull request, [`.github/workflows/ci.yml`](.github/workflows/ci.yml) automatically executes:
-- Matrix testing across Python **3.11** and **3.12**.
-- Fast code hygiene validation via `ruff check .`.
-- Code format verification via `ruff format --check .`.
-- Static type analysis via `mypy src`.
-- Complete test suite execution via `pytest -v` (19 offline tests with 100% pass guarantee).
-
----
-
-## Publishing to PyPI
-
-This project is configured with GitHub Actions **Trusted Publishing** using OpenID Connect (OIDC). No long-lived API tokens are stored in repository secrets.
-
-To release a new version:
-1. Bump the version in `pyproject.toml` and `src/toolbelt/__init__.py`.
-2. Update `CHANGELOG.md`.
-3. Create and push a git tag:
-   ```bash
-   git tag v0.1.0
-   git push origin v0.1.0
-   ```
-4. The `.github/workflows/release.yml` workflow will automatically build wheels and sdist distributions and publish them directly to PyPI.
 
 ---
 
@@ -333,7 +319,7 @@ Contributions are welcome! Please follow these steps:
 
 1. Fork the repository on GitHub.
 2. Create a feature branch: `git checkout -b feat/my-new-feature`
-3. Ensure all tests and linters pass: `pytest && ruff check . && mypy src`
+3. Ensure tests, lint, formatting, and type checks pass: `pytest -v`, `ruff check .`, `ruff format --check .`, and `mypy src`.
 4. Commit your changes using conventional commits: `git commit -m "feat(scope): describe change"`
 5. Open a Pull Request.
 
